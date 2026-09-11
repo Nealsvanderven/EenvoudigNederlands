@@ -1,0 +1,16 @@
+{
+  "name": "eenvoudig-nederlands",
+  "interface": {
+    "displayName": "Eenvoudig Nederlands"
+  },
+  "plugins": [
+    {
+      "name": "eenvoudig-nederlands",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+name: tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Controleer de JSON-bestanden
+        run: |
+          for f in .claude-plugin/plugin.json .claude-plugin/marketplace.json .agents/plugins/marketplace.json .codex-plugin/plugin.json .codex-plugin/hooks.json; do
+            python3 -c "import json,sys; json.load(open(sys.argv[1]))" "$f"
+          done
+      - name: Zelftest van de linter
+        run: python3 evals/nl_lint.py --self-test
+      - name: Zelftest van de tokenteller
+        run: python3 evals/tokens.py --self-test
+      - name: Test van de hooks
+        run: python3 src/hooks/test_lint_hook.py
+      - name: Test van de sessiehook
+        run: node src/hooks/eenvoudig-nederlands-activate.test.js
+      - name: Het voorbeeld na de herschrijving is schoon
+        run: python3 evals/nl_lint.py --gate --type beschrijvend examples/na.md

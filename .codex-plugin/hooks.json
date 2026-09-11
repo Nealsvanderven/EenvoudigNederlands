@@ -1,0 +1,19 @@
+{
+  "description": "Laad de regels voor eenvoudig Nederlands automatisch bij elke Codex-sessie.",
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "^(startup|resume|clear|compact)$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ -n \"${PLUGIN_ROOT}\" ] && node \"${PLUGIN_ROOT}/src/hooks/eenvoudig-nederlands-activate.js\" || true",
+            "timeout": 5,
+            "statusMessage": "Eenvoudig Nederlands laden...",
+            "additionalContextLimit": 0
+          }
+        ]
+      }
+    ]
+  }
+}
