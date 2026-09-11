@@ -28,6 +28,14 @@ Zet `EENVOUDIG_NEDERLANDS_STOP_BLOK` op 0 om het blokkeren uit te zetten:
 export EENVOUDIG_NEDERLANDS_STOP_BLOK=0
 ```
 
+Engelse tekst slaat het script over. Een eenvoudige telling van woorden die maar in één taal voorkomen bepaalt de taal. Daardoor kan deze plugin naast een Engelse schrijfplugin draaien, zoals Simple English.
+
+Zet `EENVOUDIG_NEDERLANDS_TAALDETECTIE` op 0 om altijd te controleren:
+
+```
+export EENVOUDIG_NEDERLANDS_TAALDETECTIE=0
+```
+
 Markdown van de agent zelf slaat het script over. Dat zijn bestanden in `.claude` en in de map die `CLAUDE_CONFIG_DIR` aanwijst. Zet `EENVOUDIG_NEDERLANDS_LINT_EXCLUDE` om meer paden over te slaan. Scheid de patronen met een dubbele punt:
 
 ```

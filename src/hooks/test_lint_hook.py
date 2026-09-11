@@ -53,6 +53,29 @@ def test_goed_bestand_geeft_code_0():
         assert code == 0, (code, fout)
 
 
+def test_taaldetectie():
+    assert lint_hook.is_nederlands("Als de build mislukt, lees dan het logbestand van de server.")
+    assert not lint_hook.is_nederlands("If the build fails, read the log file on the server.")
+    assert lint_hook.is_nederlands("")
+
+
+def test_engels_bestand_wordt_overgeslagen():
+    with tempfile.TemporaryDirectory() as map_:
+        pad = pathlib.Path(map_) / "engels.md"
+        pad.write_text("You should verify that the configuration of the service is correct "
+                       "and that the credentials are not expired.\n", encoding="utf-8")
+        code, _, fout = draai({"hook_event_name": "PostToolUse",
+                               "tool_input": {"file_path": str(pad)}})
+        assert code == 0, (code, fout)
+
+
+def test_engels_antwoord_wordt_overgeslagen():
+    engels = " ".join("This is a sentence with words in it." for _ in range(8))
+    code, uit, _ = draai({"hook_event_name": "Stop", "session_id": "test-engels",
+                          "last_assistant_message": engels})
+    assert code == 0 and uit.strip() == "", (code, uit)
+
+
 def test_niet_markdown_wordt_overgeslagen():
     code, _, _ = draai({"hook_event_name": "PostToolUse",
                         "tool_input": {"file_path": "/project/src/main.py"}})

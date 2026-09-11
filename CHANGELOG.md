@@ -1,5 +1,12 @@
 # Wijzigingen
 
+## 1.6.0
+
+- De hooks controleren alleen Nederlandse tekst. Een telling van woorden die maar in één taal voorkomen bepaalt de taal.
+- Daardoor kan deze plugin naast een Engelse schrijfplugin draaien, zoals SimpleEnglish.
+- De regelset zegt nu zelf ook dat hij alleen voor Nederlandse tekst geldt.
+- Zet `EENVOUDIG_NEDERLANDS_TAALDETECTIE` op 0 om alles te laten controleren.
+
 ## 1.5.0
 
 - De Stop-hook blokkeert nu één keer per sessie met code 2 als het antwoord de regels breekt. Het model moet het antwoord dan overdoen, in plaats van de melding pas in de volgende beurt te zien.

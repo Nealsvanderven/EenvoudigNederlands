@@ -109,6 +109,14 @@ python3 evals/nl_lint.py --self-test
 
 De linter is een reguliere expressie, geen taalkundige ontleder. Hij telt te weinig en hij kan zich vergissen. De getallen vergelijken twee teksten die door dezelfde versie zijn gehaald. Geen enkel hulpmiddel garandeert taalniveau B1. Een lezer uit de doelgroep blijft de beste toets.
 
+## Naast een Engelse schrijfplugin
+
+De hooks controleren alleen Nederlandse tekst. Een eenvoudige telling van woorden die maar in één taal voorkomen bepaalt de taal.
+
+Daardoor kun je deze plugin naast een Engelse schrijfplugin gebruiken, zoals [SimpleEnglish](https://github.com/AminBlg/SimpleEnglish). De Engelse plugin pakt de Engelse tekst en deze plugin de Nederlandse.
+
+Zet `EENVOUDIG_NEDERLANDS_TAALDETECTIE` op 0 als je alles wilt laten controleren.
+
 ## Waar de regels niet passen
 
 Reclameteksten, lanceringsberichten en blogs met een eigen stem. De regels halen overtuigingskracht er met opzet uit. Gebruik ze voor de documentatie waar die pagina naar verwijst.

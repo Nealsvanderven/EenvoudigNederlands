@@ -7,7 +7,8 @@ naar stderr en stop met code 2, zodat het model die samenvatting ziet. Code 2 na
 PostToolUse is adviserend, want het hulpmiddel heeft al gedraaid. Markdown van de
 agent zelf, zoals geheugenbestanden in de Claude-configuratiemap, slaat het script
 over. De schrijfregels gelden daar niet en een samenvatting kost alleen tokens.
-Zet EENVOUDIG_NEDERLANDS_LINT_EXCLUDE om meer paden over te slaan.
+Zet EENVOUDIG_NEDERLANDS_LINT_EXCLUDE om meer paden over te slaan. Engelse tekst
+slaat het script over, zodat deze plugin naast een Engelse schrijfplugin kan draaien.
 
 Stop: lees `last_assistant_message` en controleer het antwoordregister. Breekt het
 antwoord de regels, dan blokkeert het script één keer per sessie met code 2. Het model
@@ -75,6 +76,34 @@ def uitgesloten(doel):
     return False
 
 
+# Woorden die maar in één van de twee talen voorkomen. Woorden als "is", "in" en "of"
+# staan er niet bij, want die bestaan in allebei.
+NEDERLANDSE_WOORDEN = frozenset("""
+de het een en van dat die niet met voor op te zijn wordt worden ook maar als naar aan
+je jij jou jouw er om bij uit deze dit zoals wel nog hij zij hun onze want dus
+""".split())
+ENGELSE_WOORDEN = frozenset("""
+the and to that it for with you this are be not on your can will have has they their
+which when what all more than then its was were from should would could there these
+""".split())
+WOORD = re.compile(r"[a-zA-Z\u00c0-\u017f]+")
+
+
+def is_nederlands(tekst):
+    """Waar als de tekst eerder Nederlands dan Engels is.
+
+    De telling gebruikt woorden die maar in één taal voorkomen. Bij twijfel geeft de
+    functie waar terug, want dan doet de linter zijn werk en kost een valse treffer
+    alleen een melding. Zet EENVOUDIG_NEDERLANDS_TAALDETECTIE op 0 om altijd te tellen.
+    """
+    if os.environ.get("EENVOUDIG_NEDERLANDS_TAALDETECTIE", "1") == "0":
+        return True
+    woorden = [w.lower() for w in WOORD.findall(strip_code(tekst))]
+    nl = sum(1 for w in woorden if w in NEDERLANDSE_WOORDEN)
+    en = sum(1 for w in woorden if w in ENGELSE_WOORDEN)
+    return nl >= en
+
+
 def blokkade_marker(sessie):
     """Het bestand dat onthoudt dat deze sessie al een keer geblokkeerd is."""
     naam = re.sub(r"[^A-Za-z0-9_.-]", "_", sessie or "onbekend")[:64]
@@ -115,6 +144,8 @@ def post_tool_use(gebeurtenis):
         tekst = doel.read_text(encoding="utf-8")
     except OSError:
         return 0
+    if not is_nederlands(tekst):
+        return 0
     rapport = lint.lint(tekst, "beschrijvend")
     treffers = {k: v for k, v in rapport["violations"].items() if v}
     if not treffers:
@@ -129,6 +160,8 @@ def post_tool_use(gebeurtenis):
 
 def stop(gebeurtenis):
     antwoord = gebeurtenis.get("last_assistant_message") or ""
+    if not is_nederlands(antwoord):
+        return 0
     problemen = []
     lint = laad_linter()
     if lint is not None:

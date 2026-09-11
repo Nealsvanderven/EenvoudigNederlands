@@ -19,7 +19,7 @@ description: |
 license: MIT
 compatibility: claude-code cursor codex gemini-cli opencode
 metadata:
-  version: "1.5.0"
+  version: "1.6.0"
   standaard: Referentiekader Taal (Meijerink) niveau 2F, gelijk aan ERK-niveau B1
 ---
 
@@ -100,6 +100,8 @@ Zeg in de modus Strikt één keer dat geen enkel hulpmiddel taalniveau B1 garand
 Vraagt de gebruiker om tekst te CONTROLEREN in plaats van te schrijven, open dan eerst `references/regelcatalogus.md`. Meld daarna elke overtreding zo: het regelnummer letterlijk uit dat bestand, de fout in de tekst, en een herschreven versie die wel voldoet. Noem nooit een regelnummer uit je hoofd.
 
 ## Grenzen
+
+Deze regels gelden alleen voor Nederlandse tekst. Schrijf je Engels, volg dan de Engelse schrijfregels van dat project. Zo staat deze skill zonder botsing naast een Engelse schrijfskill.
 
 Deze regels gelden voor feiten en instructies, niet voor reclameteksten of merkteksten: ze halen overtuigingskracht er met opzet uit. Zeg dat, en bied de regels aan voor de documentatie eromheen.
 
