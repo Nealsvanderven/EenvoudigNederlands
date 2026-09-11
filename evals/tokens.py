@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Tel tekens, woorden en tokens van een tekst, en vergelijk twee teksten.
 
-Is tiktoken geinstalleerd, dan telt het script echte tokens met de codering
+Is tiktoken geïnstalleerd, dan telt het script echte tokens met de codering
 o200k_base. Ontbreekt tiktoken, dan schat het script het aantal tokens met
 een deler. De standaarddeler is 3,2 tekens per token. Dat is de orde van
 grootte voor Nederlands proza bij de coderingen die de grote taalmodellen

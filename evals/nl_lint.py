@@ -60,7 +60,7 @@ WERKWOORDCLUSTER = re.compile(
     r"wordt|worden)\s+(\w{3,}en|ge\w{2,}[dt])\s+(\w{3,}en|ge\w{2,}[dt])", re.I)
 # Een tussenzin van meer dan zes woorden. De regel telt per zin, want twee komma's
 # in twee opeenvolgende zinnen vormen samen geen tussenzin.
-LANGE_TUSSENZIN = re.compile(r",\s+(?:[^\s.!?]+\s+){6,}[^\s.!?]+\s*,")
+LANGE_TUSSENZIN = re.compile(r",\s+(?:[^\s.!?]+\s+){6,}[^\s.!?]+\s*,(?!\d)")
 AFKORTING = re.compile(
     r"\b(d\.m\.v\.|i\.v\.m\.|m\.b\.t\.|t\.b\.v\.|n\.a\.v\.|o\.a\.|e\.d\.|z\.s\.m\.|"
     r"evt\.|ca\.|bijv\.|m\.n\.|incl\.|excl\.|etc\.|i\.p\.v\.|a\.u\.b\.)", re.I)
@@ -101,6 +101,22 @@ ROTATIE_SETS = [
 JE_VORM = re.compile(r"\b(je|jij|jou|jouw|jullie)\b", re.I)
 U_VORM = re.compile(r"\b(u|uw)\b")
 GRENZEN = {"procedureel": 15, "beschrijvend": 20}
+# Ongeveer vijf regels van tachtig tekens. Zie references/taalniveaus.md.
+MAX_TEKENS_PER_ALINEA = 400
+
+
+def alineas(tekst):
+    """De alinea's van lopende tekst. Koppen, opsommingen, tabellen, citaten en code tellen niet mee."""
+    tekst = re.sub(r"```.*?```", "", tekst, flags=re.S)
+    uit = []
+    for blok in re.split(r"\n\s*\n", tekst):
+        regels = [r for r in blok.splitlines() if r.strip()]
+        if not regels:
+            continue
+        if any(re.match(r"\s*(#|[-*+]\s|\d+[.)]\s|>|\||---)", r) for r in regels):
+            continue
+        uit.append(" ".join(regels))
+    return uit
 
 
 def strip_code(tekst):
@@ -143,6 +159,7 @@ def lint(tekst, teksttype):
         "afkorting": len(AFKORTING.findall(body)),
         "spreektaal": len(SPREEKTAAL.findall(body)),
         "opsmukwoord": len(SLOP.findall(body)),
+        "alinea_te_lang": sum(1 for a in alineas(tekst) if len(a) > MAX_TEKENS_PER_ALINEA),
     }
 
     def voorwaarde_achteraan(zin):
@@ -178,6 +195,7 @@ VET = re.compile(r"\*\*[^*\n]+\*\*")
 KOP = re.compile(r"^#{1,6}\s", re.M)
 OPSOMMING = re.compile(r"^\s*([-*+]|\d+[.)])\s", re.M)
 ANTWOORD_GRENS = 5
+ANTWOORD_ZINSGRENS = 20
 
 
 def reader_check(tekst):
@@ -191,14 +209,17 @@ def reader_check(tekst):
     telling = {
         "sentences": len(zinslijst),
         "over_cap": max(0, len(zinslijst) - ANTWOORD_GRENS),
+        "zin_te_lang": sum(1 for z in zinslijst if len(z.split()) > ANTWOORD_ZINSGRENS),
         "em_dash": len(STREEPJE.findall(proza)),
         "bold_spans": len(VET.findall(proza)),
         "headers": len(KOP.findall(proza)),
         "bullets": len(OPSOMMING.findall(proza)),
+        "puntkomma": proza.count(";"),
         "spreektaal": len(SPREEKTAAL.findall(proza)),
     }
     woorden = max(1, len(kaal.split()))
-    zichtbaar = telling["over_cap"] + telling["em_dash"] + telling["bold_spans"] + telling["headers"] + telling["bullets"]
+    zichtbaar = (telling["over_cap"] + telling["zin_te_lang"] + telling["em_dash"]
+                 + telling["bold_spans"] + telling["headers"] + telling["bullets"] + telling["puntkomma"])
     return {"type": "antwoord", "woorden": woorden, "counts": telling,
             "visible_total": zichtbaar, "under_cap": telling["over_cap"] == 0}
 
@@ -239,11 +260,22 @@ def self_test():
     assert goed["violations_total"] == 0, goed
     r = reader_check(ANTWOORD_SLECHT)["counts"]
     assert (r["em_dash"], r["bold_spans"], r["headers"], r["bullets"]) == (1, 1, 1, 2), r
+    muur = " ".join(["woord"] * 24) + ". Kort antwoord hier."
+    m = reader_check(muur)["counts"]
+    assert m["zin_te_lang"] == 1 and m["over_cap"] == 0, m
+    assert reader_check("Het werkt; het is klaar.")["counts"]["puntkomma"] == 1
     assert reader_check("Ja. Dat is fout, want de wachtrij loopt vol. Schaal nu op.")["visible_total"] == 0
     assert lint("| Kolom | Waarde |\n|---|---|\n| Je dient te wachten | ok |\n",
                 "beschrijvend")["violations"]["verboden_modaal"] == 1
     assert lint("- Draai de bouten los.\n- Haal daarna het paneel weg",
                 "procedureel")["violations"]["zin_te_lang"] == 0
+    kort = "Een alinea van twee korte zinnen. Die past op een scherm."
+    assert lint(kort, "beschrijvend")["violations"]["alinea_te_lang"] == 0, kort
+    muur = ("Deze alinea loopt door. " * 20).strip()
+    assert lint(muur, "beschrijvend")["violations"]["alinea_te_lang"] == 1, muur
+    assert lint("- " + ("punt " * 90) + "\n", "beschrijvend")["violations"]["alinea_te_lang"] == 0
+    komma = "Het script rekent, zoals hierboven staat beschreven en uitgelegd, met 3,2 tekens."
+    assert lint(komma, "beschrijvend")["violations"]["lange_tussenzin"] == 0, komma
     lang = "woord " * 25
     assert lint(lang, "beschrijvend")["violations"]["zin_te_lang"] >= 1
     print("zelftest in orde:", slecht["violations_total"], "overtredingen in de slechte tekst, 0 in de goede")

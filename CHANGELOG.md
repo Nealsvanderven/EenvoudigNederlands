@@ -1,5 +1,13 @@
 # Wijzigingen
 
+## 1.2.0
+
+- Nieuwe alinearegel op basis van het scherm: ongeveer vijf regels of 400 tekens, met een witregel ertussen en de kern in de eerste zin. De regel telt geen zinnen, want een vast aantal zinnen hakt de tekst stuk.
+- Het antwoord in de chat krijgt een zinslengte van 20 woorden en een verbod op de puntkomma. Vijf lange zinnen vormen op een scherm nog steeds een muur tekst.
+- De linter telt nu te lange alinea's, te lange zinnen in een antwoord en puntkomma's in een antwoord.
+- Een komma tussen cijfers telt niet meer als tussenzin. "3,2 tekens" gaf een valse treffer.
+- De bron voor de alinearegel staat in `references/taalniveaus.md`: het Taalloket van Onze Taal.
+
 ## 1.1.0
 
 - De regel over de lengte van een alinea is weg. De skill schrijft niets meer voor over de indeling in alinea's, want een opgelegde lengte hakt de tekst stuk.

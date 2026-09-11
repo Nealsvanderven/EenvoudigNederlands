@@ -15,7 +15,11 @@ Schrijf je voor mbo-lezers, dan is 2F het doel. Dat is gelijk aan B1. Alleen mbo
 
 ## Waarom B1
 
-Ongeveer zeventig procent van de Nederlanders leest tekst op niveau B1 of lager. Ongeveer 2,5 miljoen Nederlanders van 16 jaar en ouder hebben moeite met lezen, schrijven of rekenen. De Rijksoverheid gebruikt B1 daarom als norm in de campagne Direct Duidelijk. De Vlaamse overheid gebruikt dezelfde gedachte onder de naam Klare Taal. De internationale norm ISO 24495-1 uit 2023 beschrijft dezelfde principes zonder een niveau te noemen.
+Ongeveer zeventig procent van de Nederlanders leest tekst op niveau B1 of lager. Ongeveer 2,5 miljoen Nederlanders van 16 jaar en ouder hebben moeite met lezen, schrijven of rekenen.
+
+De Rijksoverheid gebruikt B1 daarom als norm in de campagne Direct Duidelijk. De Vlaamse overheid gebruikt dezelfde gedachte onder de naam Klare Taal.
+
+De internationale norm ISO 24495-1 uit 2023 beschrijft dezelfde principes zonder een niveau te noemen.
 
 ## Wat B1 concreet betekent
 
@@ -28,6 +32,14 @@ Een tekst op B1 heeft deze kenmerken:
 5. De lezer weet na de eerste alinea waar de tekst over gaat en wat hij moet doen.
 
 Een tekst op B1 is niet kinderlijk. Je vertelt hetzelfde, maar in woorden die de lezer al kent.
+
+## Hoe lang een alinea mag zijn
+
+Onze Taal noemt vijf zinnen het gemiddelde voor een alinea, oftewel vijf tot tien regels tekst. Voor een scherm noemt Onze Taal ongeveer vijf regels, en voor een ongeoefende lezer zo kort mogelijk.
+
+Deze skill telt daarom geen zinnen maar regels. De grens is ongeveer vijf regels, oftewel ongeveer 400 tekens bij een regel van tachtig tekens.
+
+Een vaste hoeveelheid zinnen per alinea werkt niet. Die hakt lange en korte zinnen even hard af en maakt de tekst hakkelig.
 
 ## Hoe je het niveau meet
 
@@ -45,3 +57,4 @@ Zeg dit één keer als de gebruiker om B1 of om een toets vraagt: geen enkel hul
 - Direct Duidelijk, campagne van het ministerie van Binnenlandse Zaken
 - ISO 24495-1:2023, Plain language, deel 1: bestuurlijke principes en richtlijnen
 - Gemeenschappelijk Europees Referentiekader voor Moderne Vreemde Talen (ERK)
+- Onze Taal, Taalloket, over alinea's: https://onzetaal.nl/taalloket/alineas

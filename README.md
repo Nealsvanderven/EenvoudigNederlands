@@ -29,7 +29,7 @@ Voor Claude Code als uitvoerstijl: kopieer `output-styles/eenvoudig-nederlands.m
 
 ## Wat het oplevert in tokens
 
-De regels halen opvulling weg. Dat scheelt uitvoertokens, en bij een lange sessie ook invoertokens, want het gesprek blijft korter.
+De regels halen opvulling weg. Dat scheelt uitvoertokens. Bij een lange sessie scheelt het ook invoertokens, want het gesprek blijft korter.
 
 De plugin bevat een voorbeeld dat je zelf kunt narekenen. `examples/voor.md` is tekst in de stijl die een model zonder deze regels maakt. `examples/na.md` is dezelfde inhoud onder de regels.
 
@@ -54,7 +54,11 @@ De grootste besparing zit niet in documenten maar in de chat. De grens van vijf 
 
 ## Hoe de tokens geteld zijn
 
-`evals/tokens.py` gebruikt tiktoken met de codering `o200k_base` als die is geinstalleerd. Ontbreekt tiktoken, dan schat het script het aantal tokens op 3,2 tekens per token. Dat is de orde van grootte voor Nederlands proza. Engels haalt ongeveer 4 tekens per token, Nederlands minder, want Nederlandse woorden zijn langer en samenstellingen vallen uiteen in delen. De tabel hierboven komt uit de schatting. Installeer tiktoken voor een echte meting:
+Is tiktoken geïnstalleerd, dan telt `evals/tokens.py` echte tokens met de codering `o200k_base`. Ontbreekt tiktoken, dan schat het script het aantal tokens op 3,2 tekens per token.
+
+Dat is de orde van grootte voor Nederlands proza. Engels haalt ongeveer 4 tekens per token en Nederlands minder, want Nederlandse woorden zijn langer.
+
+De tabel hierboven komt uit de schatting. Installeer tiktoken voor een echte meting:
 
 ```
 pip install tiktoken
@@ -87,7 +91,15 @@ De volledige regelset staat in `skills/eenvoudig-nederlands/SKILL.md`. De genumm
 
 ## De linter
 
-`evals/nl_lint.py` telt mechanische overtredingen: zinslengte, ambtelijke woorden, verboden modale werkwoorden, naamwoordstijl, lijdende vorm, voltooide tijden, werkwoordclusters, lange tussenzinnen, puntkomma's, gedachtestreepjes, afkortingen, opsmukwoorden, voorwaarden achteraan, synoniemrotatie en een gemengde aanspreekvorm.
+`evals/nl_lint.py` telt zeventien soorten mechanische overtredingen. Dit zijn de soorten:
+
+- Zinslengte boven de grens
+- Ambtelijke woorden en verboden modale werkwoorden
+- Naamwoordstijl, lijdende vorm en voltooide tijden
+- Werkwoordclusters en lange tussenzinnen
+- Puntkomma's, gedachtestreepjes en afkortingen
+- Opsmukwoorden en voorwaarden achteraan
+- Synoniemrotatie en een gemengde aanspreekvorm
 
 ```
 python3 evals/nl_lint.py --type procedureel draaiboek.md
