@@ -60,11 +60,40 @@ def test_niet_markdown_wordt_overgeslagen():
 
 
 def test_antwoord_met_opmaak_geeft_melding():
-    code, uit, _ = draai({"hook_event_name": "Stop",
+    code, uit, _ = draai({"hook_event_name": "Stop", "stop_hook_active": True,
                           "last_assistant_message": "**Ja** — dat klopt.\n\n## Waarom\n- Een punt.\n- Twee punten.\n"})
     assert code == 0
     melding = json.loads(uit)["systemMessage"]
     assert "gedachtestreepje" in melding and "kop" in melding
+
+
+def test_lang_antwoord_blokkeert_een_keer():
+    """De eerste keer code 2, daarna alleen nog een melding."""
+    lang = " ".join("Dit is een zin met woorden erin." for _ in range(8))
+    sessie = {"hook_event_name": "Stop", "session_id": "test-blok-1", "last_assistant_message": lang}
+    marker = lint_hook.blokkade_marker("test-blok-1")
+    if marker.exists():
+        marker.unlink()
+    try:
+        code, uit, fout = draai(sessie)
+        assert code == 2, (code, uit, fout)
+        assert "antwoordregister" in fout
+        code, uit, fout = draai(sessie)
+        assert code == 0, (code, fout)
+        assert "systemMessage" in uit
+    finally:
+        if marker.exists():
+            marker.unlink()
+
+
+def test_stop_hook_active_blokkeert_niet():
+    lang = " ".join("Dit is een zin met woorden erin." for _ in range(8))
+    code, uit, _ = draai({"hook_event_name": "Stop", "session_id": "test-blok-2",
+                          "stop_hook_active": True, "last_assistant_message": lang})
+    assert code == 0, code
+    assert "systemMessage" in uit
+    marker = lint_hook.blokkade_marker("test-blok-2")
+    assert not marker.exists()
 
 
 def test_schoon_antwoord_geeft_geen_melding():

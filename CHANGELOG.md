@@ -1,5 +1,12 @@
 # Wijzigingen
 
+## 1.5.0
+
+- De Stop-hook blokkeert nu één keer per sessie met code 2 als het antwoord de regels breekt. Het model moet het antwoord dan overdoen, in plaats van de melding pas in de volgende beurt te zien.
+- Daarna meldt de hook de fout alleen nog met een systemMessage, zodat de sessie niet in een lus komt.
+- De hook blokkeert nooit als `stop_hook_active` waar is, want dan draait het model al een herstelbeurt.
+- Zet `EENVOUDIG_NEDERLANDS_STOP_BLOK` op 0 om het blokkeren uit te zetten.
+
 ## 1.4.0
 
 - Eén zin per opsommingspunt in een antwoord. De grens van vijf zinnen telt elk punt mee, dus twee zinnen per punt liep over die grens heen.

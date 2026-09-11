@@ -12,7 +12,7 @@ De plugin doet drie dingen:
 
 1. Bij het begin van een sessie laadt een hook de regelset. Je hoeft de skill niet te noemen.
 2. Na elke Write of Edit op een Markdown-bestand telt een linter de overtredingen en meldt die aan het model. De linter blokkeert nooit.
-3. Aan het eind van een antwoord controleert dezelfde linter het antwoordregister: maximaal vijf zinnen, geen koppen, geen opsommingen, geen vet.
+3. Aan het eind van een antwoord controleert dezelfde linter het antwoordregister: maximaal vijf zinnen, maximaal 20 woorden per zin, geen koppen en geen vet. Breekt het antwoord de regels, dan blokkeert de hook één keer per sessie, zodat het model het antwoord overdoet.
 
 ## Installeren
 
@@ -82,8 +82,8 @@ Voor documenten:
 
 Voor het antwoord in de chat:
 
-1. Lopende tekst, geen koppen, opsommingen, vet of tabellen.
-2. Maximaal vijf zinnen.
+1. Eén punt in lopende tekst, meer punten onder elkaar met één zin per punt.
+2. Maximaal vijf zinnen en maximaal 20 woorden per zin.
 3. De eerste zin geeft het antwoord.
 4. Geen gedachtestreepje, geen aanloopjes, geen afsluiters.
 

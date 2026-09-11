@@ -9,10 +9,12 @@ agent zelf, zoals geheugenbestanden in de Claude-configuratiemap, slaat het scri
 over. De schrijfregels gelden daar niet en een samenvatting kost alleen tokens.
 Zet EENVOUDIG_NEDERLANDS_LINT_EXCLUDE om meer paden over te slaan.
 
-Stop: lees `last_assistant_message`, controleer het antwoordregister (maximaal vijf
-zinnen, punten in een opsomming meegeteld, geen koppen, opsommingen, vet of
-gedachtestreepjes) en geef alleen een systemMessage terug als het antwoord de regels
-breekt. Stop altijd met code 0, zodat de sessie nooit in een lus komt.
+Stop: lees `last_assistant_message` en controleer het antwoordregister. Breekt het
+antwoord de regels, dan blokkeert het script één keer per sessie met code 2. Het model
+moet het antwoord dan overdoen. Daarna meldt het script de fout alleen nog met een
+systemMessage, zodat de sessie nooit in een lus komt. Het script blokkeert ook nooit
+als `stop_hook_active` waar is, want dan draait het model al een herstelbeurt.
+Zet EENVOUDIG_NEDERLANDS_STOP_BLOK op 0 om het blokkeren uit te zetten.
 """
 import fnmatch
 import json
@@ -20,6 +22,7 @@ import os
 import pathlib
 import re
 import sys
+import tempfile
 
 HIER = pathlib.Path(__file__).resolve().parent
 WORTEL = HIER.parent.parent
@@ -72,6 +75,32 @@ def uitgesloten(doel):
     return False
 
 
+def blokkade_marker(sessie):
+    """Het bestand dat onthoudt dat deze sessie al een keer geblokkeerd is."""
+    naam = re.sub(r"[^A-Za-z0-9_.-]", "_", sessie or "onbekend")[:64]
+    return pathlib.Path(tempfile.gettempdir()) / f"eenvoudig-nederlands-{naam}.blok"
+
+
+def mag_blokkeren(gebeurtenis):
+    """Waar als dit antwoord geblokkeerd mag worden.
+
+    Blokkeren mag één keer per sessie. Een tweede blokkade zou het model in een lus
+    kunnen brengen, want het herstelde antwoord kan opnieuw een treffer opleveren.
+    """
+    if os.environ.get("EENVOUDIG_NEDERLANDS_STOP_BLOK", "1") == "0":
+        return False
+    if gebeurtenis.get("stop_hook_active"):
+        return False
+    marker = blokkade_marker(gebeurtenis.get("session_id"))
+    if marker.exists():
+        return False
+    try:
+        marker.touch()
+    except OSError:
+        return False
+    return True
+
+
 def post_tool_use(gebeurtenis):
     pad = (gebeurtenis.get("tool_input") or {}).get("file_path") or ""
     if not pad.endswith(".md"):
@@ -122,9 +151,18 @@ def stop(gebeurtenis):
         problemen.append("een aanloopje")
     if AFSLUITER.search(antwoord):
         problemen.append("een afsluiter")
-    if problemen:
-        print(json.dumps({"systemMessage": "eenvoudig-nederlands controle: " + "; ".join(problemen)
-                          + ". Antwoord in lopende tekst, met maximaal vijf zinnen."}, ensure_ascii=False))
+    if not problemen:
+        return 0
+    samenvatting = ", ".join(problemen)
+    if mag_blokkeren(gebeurtenis):
+        sys.stderr.write(
+            f"eenvoudig-nederlands: dit antwoord breekt het antwoordregister ({samenvatting}). "
+            "Geef het antwoord opnieuw: maximaal vijf zinnen, maximaal 20 woorden per zin, "
+            "meer dan één punt onder elkaar met één zin per punt, en geen koppen, vet of "
+            "gedachtestreepjes.\n")
+        return 2
+    print(json.dumps({"systemMessage": "eenvoudig-nederlands controle: " + samenvatting
+                      + ". Antwoord in lopende tekst, met maximaal vijf zinnen."}, ensure_ascii=False))
     return 0
 
 

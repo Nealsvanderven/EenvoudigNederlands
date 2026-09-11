@@ -19,7 +19,7 @@ description: |
 license: MIT
 compatibility: claude-code cursor codex gemini-cli opencode
 metadata:
-  version: "1.4.0"
+  version: "1.5.0"
   standaard: Referentiekader Taal (Meijerink) niveau 2F, gelijk aan ERK-niveau B1
 ---
 
