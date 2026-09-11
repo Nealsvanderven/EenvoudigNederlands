@@ -106,9 +106,7 @@ Het anker is referentieniveau 2F uit het Referentiekader Taal, gelijk aan ERK-ni
 
 **5.6** Genummerde stappen voor een volgorde, opsommingstekens voor een verzameling zonder volgorde.
 
-**5.7** Eén onderwerp per alinea, maximaal zes zinnen per alinea.
-
-**5.8** Waarschuwing: eerst de opdracht of de voorwaarde, dan het risico. Fout: "Omdat dit commando alle rijen verwijdert, moet je het niet op productie uitvoeren." Goed: "Voer dit commando niet uit op productie. Het commando verwijdert alle rijen."
+**5.7** Waarschuwing: eerst de opdracht of de voorwaarde, dan het risico. Fout: "Omdat dit commando alle rijen verwijdert, moet je het niet op productie uitvoeren." Goed: "Voer dit commando niet uit op productie. Het commando verwijdert alle rijen."
 
 ## 6. Inhoud
 

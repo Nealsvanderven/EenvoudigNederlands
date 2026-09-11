@@ -19,7 +19,7 @@ description: |
 license: MIT
 compatibility: claude-code cursor codex gemini-cli opencode
 metadata:
-  version: "1.0.0"
+  version: "1.1.0"
   standaard: Referentiekader Taal (Meijerink) niveau 2F, gelijk aan ERK-niveau B1
 ---
 
@@ -33,7 +33,7 @@ Er zijn twee registers: het document dat je schrijft of herschrijft, en het antw
 
 Pas deze regels toe op de lopende tekst:
 
-1. **Bepaal per passage het teksttype.** Procedurele tekst zegt wat de lezer moet doen: gebiedende wijs, maximaal 15 woorden per zin, één instructie per zin. Beschrijvende tekst legt uit: maximaal 20 woorden per zin, één onderwerp per alinea, maximaal zes zinnen per alinea. Het gemiddelde over het hele document blijft onder 15 woorden.
+1. **Bepaal per passage het teksttype.** Procedurele tekst zegt wat de lezer moet doen: gebiedende wijs, maximaal 15 woorden per zin, één instructie per zin. Beschrijvende tekst legt uit: maximaal 20 woorden per zin. Het gemiddelde over het hele document blijft onder 15 woorden.
 2. **Raak nooit** code, functienamen, commando's, opties, bestandspaden, foutmeldingen tussen aanhalingstekens, productnamen of feiten aan. Staat er geen getal of oorzaak in de bron, laat de algemene uitspraak dan staan.
 3. **Voorwaarde voor opdracht, met komma en "dan".** "Als de build mislukt, lees dan het logbestand."
 4. **Actieve vorm. Noem wie iets doet.** Geen lijdende vorm met "worden ... door", geen "er wordt", geen "men". Niet "de migratie wordt uitgevoerd", maar "jij voert de migratie uit".
@@ -97,6 +97,8 @@ Vraagt de gebruiker om tekst te CONTROLEREN in plaats van te schrijven, open dan
 ## Grenzen
 
 Deze regels gelden voor feiten en instructies, niet voor reclameteksten of merkteksten: ze halen overtuigingskracht er met opzet uit. Zeg dat, en bied de regels aan voor de documentatie eromheen.
+
+Deze regels zeggen niets over de lengte van een alinea. Indeling in alinea's laat de skill aan de schrijver, want een opgelegde lengte hakt de tekst stuk.
 
 Eenvoudig Nederlands is geen kinderlijk Nederlands. Korte zinnen betekenen niet dat je de lezer minder vertelt. Je vertelt hetzelfde in woorden die de lezer al kent.
 

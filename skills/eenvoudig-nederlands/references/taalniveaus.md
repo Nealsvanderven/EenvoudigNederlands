@@ -24,7 +24,7 @@ Een tekst op B1 heeft deze kenmerken:
 1. De zinnen zijn gemiddeld korter dan 15 woorden.
 2. De woorden komen uit de 5000 meest gebruikte Nederlandse woorden, of ze worden uitgelegd.
 3. De zinsbouw is recht: onderwerp, persoonsvorm, rest.
-4. Er staat één gedachte per zin en één onderwerp per alinea.
+4. Er staat één gedachte per zin.
 5. De lezer weet na de eerste alinea waar de tekst over gaat en wat hij moet doen.
 
 Een tekst op B1 is niet kinderlijk. Je vertelt hetzelfde, maar in woorden die de lezer al kent.

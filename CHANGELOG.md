@@ -1,5 +1,9 @@
 # Wijzigingen
 
+## 1.1.0
+
+- De regel over de lengte van een alinea is weg. De skill schrijft niets meer voor over de indeling in alinea's, want een opgelegde lengte hakt de tekst stuk.
+
 ## 1.0.0
 
 Eerste versie.
