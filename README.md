@@ -19,7 +19,7 @@ De plugin doet drie dingen:
 Voor Claude Code:
 
 ```
-/plugin marketplace add JOUW-GITHUB-NAAM/EenvoudigNederlands
+/plugin marketplace add nealsvanderven/EenvoudigNederlands
 /plugin install eenvoudig-nederlands
 ```
 
