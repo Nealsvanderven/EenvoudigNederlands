@@ -2,7 +2,7 @@
   "name": "eenvoudig-nederlands",
   "owner": {
     "name": "Neals van der Ven",
-    "url": "https://github.com/nealsvanderven"
+    "url": "https://github.com/Nealsvanderven"
   },
   "description": "Skill voor helder Nederlands op taalniveau B1, voor documentatie, foutmeldingen en antwoorden.",
   "plugins": [
@@ -15,8 +15,8 @@
       "author": {
         "name": "Neals van der Ven"
       },
-      "homepage": "https://github.com/nealsvanderven/EenvoudigNederlands",
-      "repository": "https://github.com/nealsvanderven/EenvoudigNederlands",
+      "homepage": "https://github.com/Nealsvanderven/EenvoudigNederlands",
+      "repository": "https://github.com/Nealsvanderven/EenvoudigNederlands",
       "license": "MIT",
       "keywords": ["nederlands", "taalniveau-b1", "klare-taal", "documentatie", "technisch-schrijven"]
     }

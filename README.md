@@ -19,7 +19,7 @@ De plugin doet drie dingen:
 Voor Claude Code:
 
 ```
-/plugin marketplace add nealsvanderven/EenvoudigNederlands
+/plugin marketplace add Nealsvanderven/EenvoudigNederlands
 /plugin install eenvoudig-nederlands
 ```
 

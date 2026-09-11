@@ -5,8 +5,8 @@
   "author": {
     "name": "Neals van der Ven"
   },
-  "homepage": "https://github.com/nealsvanderven/EenvoudigNederlands",
-  "repository": "https://github.com/nealsvanderven/EenvoudigNederlands",
+  "homepage": "https://github.com/Nealsvanderven/EenvoudigNederlands",
+  "repository": "https://github.com/Nealsvanderven/EenvoudigNederlands",
   "license": "MIT",
   "keywords": [
     "nederlands",
@@ -26,7 +26,7 @@
     "capabilities": [
       "Write"
     ],
-    "websiteURL": "https://github.com/nealsvanderven/EenvoudigNederlands",
+    "websiteURL": "https://github.com/Nealsvanderven/EenvoudigNederlands",
     "defaultPrompt": [
       "Herschrijf deze tekst in eenvoudig Nederlands op B1.",
       "Schrijf deze procedure op taalniveau B1.",
