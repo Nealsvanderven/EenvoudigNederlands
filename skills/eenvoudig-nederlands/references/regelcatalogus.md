@@ -104,7 +104,7 @@ Het anker is referentieniveau 2F uit het Referentiekader Taal, gelijk aan ERK-ni
 
 **5.5** Een opsomming gebruik je bij twee of meer gelijksoortige punten of stappen. De aanloop eindigt op een dubbele punt. Elk punt begint met een hoofdletter en bevat één instructie.
 
-**5.5a** Zet meerdere punten onder elkaar, ook in een kort antwoord. Schrijf ze niet als "ten eerste", "ten tweede" en "daarnaast" in lopende tekst, want een lezer verliest op een scherm de tel.
+**5.5a** Zet meerdere punten onder elkaar, ook in een kort antwoord. Schrijf één zin per punt. Schrijf ze niet als "ten eerste", "ten tweede" en "daarnaast" in lopende tekst, want een lezer verliest op een scherm de tel.
 
 **5.6** Genummerde stappen voor een volgorde, opsommingstekens voor een verzameling zonder volgorde.
 

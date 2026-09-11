@@ -111,6 +111,7 @@ def stop(gebeurtenis):
         for sleutel, label in (("em_dash", "gedachtestreepje"), ("bold_spans", "vet stuk"),
                                ("headers", "kop"), ("puntkomma", "puntkomma"),
                                ("opsomming_in_zin", "opsomming in lopende tekst"),
+                               ("punt_meerdere_zinnen", "opsommingspunt met meer dan één zin"),
                                ("spreektaal", "samentrekking")):
             if c[sleutel]:
                 problemen.append(f"{c[sleutel]} {label}")

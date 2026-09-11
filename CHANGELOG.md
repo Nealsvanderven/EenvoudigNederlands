@@ -1,5 +1,10 @@
 # Wijzigingen
 
+## 1.4.0
+
+- Eén zin per opsommingspunt in een antwoord. De grens van vijf zinnen telt elk punt mee, dus twee zinnen per punt liep over die grens heen.
+- De linter telt opsommingspunten met meer dan één zin.
+
 ## 1.3.0
 
 - Meer dan één punt gaat onder elkaar in een opsomming, ook in een antwoord in de chat. Dat leest op een scherm beter dan "ten eerste" en "ten tweede" in lopende tekst.

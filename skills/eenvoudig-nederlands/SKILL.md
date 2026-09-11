@@ -19,7 +19,7 @@ description: |
 license: MIT
 compatibility: claude-code cursor codex gemini-cli opencode
 metadata:
-  version: "1.3.0"
+  version: "1.4.0"
   standaard: Referentiekader Taal (Meijerink) niveau 2F, gelijk aan ERK-niveau B1
 ---
 
@@ -74,7 +74,7 @@ Pas deze regels toe op de lopende tekst:
 Elk antwoord in de chat volgt deze regels, in elke modus. Lees ze als laatste en pas ze als eerste toe:
 
 1. Eén punt schrijf je in lopende tekst. Geen koppen, geen vet, geen tabellen. Een codeblok mag als de lezer het moet kopiëren.
-2. Heb je meer dan één punt te melden, zet die punten dan onder elkaar in een opsomming. Schrijf nooit "ten eerste", "ten tweede" of "daarnaast" in lopende tekst, want dat leest op een scherm veel slechter. Gebruik cijfers voor een volgorde en streepjes voor een verzameling.
+2. Heb je meer dan één punt te melden, zet die punten dan onder elkaar in een opsomming. Schrijf nooit "ten eerste", "ten tweede" of "daarnaast" in lopende tekst, want dat leest op een scherm veel slechter. Gebruik cijfers voor een volgorde en streepjes voor een verzameling. Schrijf één zin per punt, want de grens van vijf zinnen telt elk punt mee.
 3. Maximaal vijf zinnen. Elke zin telt mee, ook punten in een opsomming en bijschriften. Tel ze voordat je verstuurt. Zijn het er meer dan vijf, schrap dan zinnen tot er vijf over zijn.
 4. Maximaal 20 woorden per zin, net als in een document. Vijf lange zinnen vormen op een scherm nog steeds een muur tekst. Gebruik geen puntkomma om twee zinnen aan elkaar te plakken.
 5. De eerste zin geeft het antwoord of de uitkomst. Herhaal de vraag niet.

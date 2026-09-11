@@ -202,6 +202,20 @@ ANTWOORD_GRENS = 5
 ANTWOORD_ZINSGRENS = 20
 
 
+def punten_met_meerdere_zinnen(proza):
+    """Opsommingspunten met meer dan één zin. De grens van vijf zinnen telt elk punt mee."""
+    aantal = 0
+    for regel in proza.splitlines():
+        m = OPSOMMING.match(regel)
+        if not m:
+            continue
+        tekst = regel[m.end():].strip()
+        zinnen = [z for z in re.split(r"(?<=[.!?])\s+", tekst) if len(z.split()) >= 2]
+        if len(zinnen) > 1:
+            aantal += 1
+    return aantal
+
+
 def reader_check(tekst):
     """Wat de lezer in een chatantwoord ziet. Elke zin telt, ook punten in een opsomming."""
     tekst = tekst.replace("\r\n", "\n")
@@ -220,12 +234,13 @@ def reader_check(tekst):
         "bullets": len(OPSOMMING.findall(proza)),
         "puntkomma": proza.count(";"),
         "opsomming_in_zin": max(0, len(OPSOMMING_IN_ZIN.findall(kaal)) - 1),
+        "punt_meerdere_zinnen": punten_met_meerdere_zinnen(proza),
         "spreektaal": len(SPREEKTAAL.findall(proza)),
     }
     woorden = max(1, len(kaal.split()))
     zichtbaar = (telling["over_cap"] + telling["zin_te_lang"] + telling["em_dash"]
                  + telling["bold_spans"] + telling["headers"] + telling["puntkomma"]
-                 + telling["opsomming_in_zin"])
+                 + telling["opsomming_in_zin"] + telling["punt_meerdere_zinnen"])
     return {"type": "antwoord", "woorden": woorden, "counts": telling,
             "visible_total": zichtbaar, "under_cap": telling["over_cap"] == 0}
 
@@ -272,6 +287,8 @@ def self_test():
     assert reader_check("Het werkt; het is klaar.")["counts"]["puntkomma"] == 1
     rij = "Ten eerste werkt het niet. Ten tweede is het traag."
     assert reader_check(rij)["counts"]["opsomming_in_zin"] == 1, rij
+    breed = "Drie oorzaken:\n\n- De cache stond vol. De container stopte.\n- De poort was dicht."
+    assert reader_check(breed)["counts"]["punt_meerdere_zinnen"] == 1, reader_check(breed)
     lijst = "Twee punten:\n\n- Het werkt niet.\n- Het is traag."
     assert reader_check(lijst)["visible_total"] == 0, reader_check(lijst)
     assert reader_check("Ja. Dat is fout, want de wachtrij loopt vol. Schaal nu op.")["visible_total"] == 0
