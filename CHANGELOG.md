@@ -1,5 +1,11 @@
 # Wijzigingen
 
+## 1.3.0
+
+- Meer dan één punt gaat onder elkaar in een opsomming, ook in een antwoord in de chat. Dat leest op een scherm beter dan "ten eerste" en "ten tweede" in lopende tekst.
+- Een opsomming mag nu vanaf twee punten, eerst vanaf drie.
+- De linter telt opsommingspunten in een antwoord niet meer als fout. Twee of meer opsommingswoorden in lopende tekst tellen wel.
+
 ## 1.2.0
 
 - Nieuwe alinearegel op basis van het scherm: ongeveer vijf regels of 400 tekens, met een witregel ertussen en de kern in de eerste zin. De regel telt geen zinnen, want een vast aantal zinnen hakt de tekst stuk.

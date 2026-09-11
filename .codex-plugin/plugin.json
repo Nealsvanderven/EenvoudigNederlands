@@ -1,6 +1,6 @@
 {
   "name": "eenvoudig-nederlands",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Schrijf helder Nederlands op taalniveau B1 (referentieniveau 2F): korte zinnen, actieve vorm, werkwoordstijl, geen tangconstructies, geen ambtelijke taal, elke vakterm uitgelegd bij het eerste gebruik. Bespaart tokens, want de regels halen de opvulling uit documenten en antwoorden.",
   "author": {
     "name": "Neals van der Ven"

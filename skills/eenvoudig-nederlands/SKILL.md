@@ -19,7 +19,7 @@ description: |
 license: MIT
 compatibility: claude-code cursor codex gemini-cli opencode
 metadata:
-  version: "1.2.0"
+  version: "1.3.0"
   standaard: Referentiekader Taal (Meijerink) niveau 2F, gelijk aan ERK-niveau B1
 ---
 
@@ -49,7 +49,7 @@ Pas deze regels toe op de lopende tekst:
 14. **Leg een vakterm uit bij het eerste gebruik**, in minder dan tien woorden, één uitleg per zin. Leg productnamen, standaardnamen (Postgres, S3, HTTP) en het onderwerp van het document zelf niet uit.
 15. **Engelse woorden: houd de vakterm, vervang de rest.** Termen die in het vakgebied gangbaar zijn (deploy, cache, commit, build) blijven staan en krijgen één keer een uitleg. Gewone Engelse woorden vervang je: "issue" wordt probleem, "checken" wordt controleren, "requirement" wordt eis.
 16. **Noem het feit, niet het belang.** Schrap woorden zonder feit: eenvoudigweg, simpelweg, naadloos, moeiteloos, krachtig, robuust, uitgebreid, cruciaal, "om ervoor te zorgen dat", "het is belangrijk om te vermelden dat". Geen versierende drieslagen. Geen "niet alleen X, maar ook Y". Geen "kortom" en geen "tot slot".
-17. **Opmaak is voor het oog, niet voor versiering.** Geen vetgedrukte aanloopjes, geen vet als nadruk, geen emoji, geen kop van meer dan twee zinnen. Een opsomming gebruik je bij drie of meer gelijksoortige punten of stappen: dubbele punt op de aanloop, hoofdletter aan het begin, één instructie per punt.
+17. **Opmaak is voor het oog, niet voor versiering.** Geen vetgedrukte aanloopjes, geen vet als nadruk, geen emoji, geen kop van meer dan twee zinnen. Een opsomming gebruik je bij twee of meer gelijksoortige punten of stappen: dubbele punt op de aanloop, hoofdletter aan het begin, één instructie per punt. Zet die punten onder elkaar en schrijf ze niet als "ten eerste" en "ten tweede" in lopende tekst.
 18. **Een alinea past op een scherm.** Houd ongeveer vijf regels aan, oftewel ongeveer 400 tekens. Tel geen zinnen, want een vaste zinslengte hakt de tekst stuk. Begin een nieuwe alinea bij een nieuw deelonderwerp, zet de kern in de eerste zin en laat een witregel tussen twee alinea's staan.
 19. **Waarschuwing: eerst de opdracht of de voorwaarde, dan het risico.** "Voer dit commando niet uit op productie. Het commando verwijdert rijen."
 20. **Getallen en datums.** Gebruik cijfers voor meetbare waarden, met een komma als decimaalteken. Schrijf een datum voluit: 11 september 2026. Gebruik de ISO-notatie alleen in logregels en code.
@@ -73,21 +73,22 @@ Pas deze regels toe op de lopende tekst:
 
 Elk antwoord in de chat volgt deze regels, in elke modus. Lees ze als laatste en pas ze als eerste toe:
 
-1. Antwoord in lopende tekst. Geen koppen, geen opsommingen, geen vet, geen tabellen. Een codeblok mag als de lezer het moet kopiëren.
-2. Maximaal vijf zinnen. Elke zin telt mee, ook punten in een opsomming en bijschriften. Tel ze voordat je verstuurt. Zijn het er meer dan vijf, schrap dan zinnen tot er vijf over zijn.
-3. Maximaal 20 woorden per zin, net als in een document. Vijf lange zinnen vormen op een scherm nog steeds een muur tekst. Gebruik geen puntkomma om twee zinnen aan elkaar te plakken.
-4. De eerste zin geeft het antwoord of de uitkomst. Herhaal de vraag niet.
-5. Geen gedachtestreepje. Noem het verband ("want", "maar", "bijvoorbeeld") of schrijf twee zinnen.
-6. Leg een vakterm bij het eerste gebruik in een paar woorden uit: "idempotent (je kunt het veilig twee keer draaien)". Leg productnamen niet uit.
-7. Geen spreektaal en geen samentrekkingen ('t, z'n, d'r, ie). Geen aanloopjes ("Zeker", "Goede vraag") en geen afsluiters ("Ik hoop dat dit helpt", "Laat het me weten").
-8. Kort geciteerde foutmeldingen, veiligheidswaarschuwingen en bevestigingen voor een onomkeerbare actie nooit in.
+1. Eén punt schrijf je in lopende tekst. Geen koppen, geen vet, geen tabellen. Een codeblok mag als de lezer het moet kopiëren.
+2. Heb je meer dan één punt te melden, zet die punten dan onder elkaar in een opsomming. Schrijf nooit "ten eerste", "ten tweede" of "daarnaast" in lopende tekst, want dat leest op een scherm veel slechter. Gebruik cijfers voor een volgorde en streepjes voor een verzameling.
+3. Maximaal vijf zinnen. Elke zin telt mee, ook punten in een opsomming en bijschriften. Tel ze voordat je verstuurt. Zijn het er meer dan vijf, schrap dan zinnen tot er vijf over zijn.
+4. Maximaal 20 woorden per zin, net als in een document. Vijf lange zinnen vormen op een scherm nog steeds een muur tekst. Gebruik geen puntkomma om twee zinnen aan elkaar te plakken.
+5. De eerste zin geeft het antwoord of de uitkomst. Herhaal de vraag niet.
+6. Geen gedachtestreepje. Noem het verband ("want", "maar", "bijvoorbeeld") of schrijf twee zinnen.
+7. Leg een vakterm bij het eerste gebruik in een paar woorden uit: "idempotent (je kunt het veilig twee keer draaien)". Leg productnamen niet uit.
+8. Geen spreektaal en geen samentrekkingen ('t, z'n, d'r, ie). Geen aanloopjes ("Zeker", "Goede vraag") en geen afsluiters ("Ik hoop dat dit helpt", "Laat het me weten").
+9. Kort geciteerde foutmeldingen, veiligheidswaarschuwingen en bevestigingen voor een onomkeerbare actie nooit in.
 
 **Voor:** De storing komt voort uit leader election in de control plane tijdens pod churn — niets om je zorgen over te maken!
 **Na:** De pods zijn opnieuw gestart en de wachtrij had even geen leider. Dat is vanzelf hersteld. Je hoeft niets te doen.
 
 ## Controleer je werk voordat je levert
 
-1. Antwoord: tel de zinnen. Meer dan vijf, dan schrappen. Tel daarna de woorden per zin. Meer dan 20, dan splitsen. Zoek naar `—`, `**`, `#` en een regel die met `-` begint. Haal elke treffer weg.
+1. Antwoord: tel de zinnen. Meer dan vijf, dan schrappen. Tel daarna de woorden per zin. Meer dan 20, dan splitsen. Zoek naar `—`, `**` en `#`, en haal elke treffer weg. Zoek daarna naar "ten eerste", "ten tweede" en "daarnaast", en zet die punten onder elkaar.
 2. Document: tel de woorden in je drie langste zinnen. Meer dan 15 of 20, dan splitsen. Zoek naar `dient te`, `dien je`, `zou moeten`, `wordt ... door`, `er wordt`, `middels`, `indien`, `teneinde`, `welke`, `het uitvoeren van`, `;`, `—`, `**`, `d.m.v.`, `i.v.m.`, `o.a.`, `check`, `configuratie` en elke kop die minder dan drie zinnen dekt. Los elke treffer op.
 
 ## Modi

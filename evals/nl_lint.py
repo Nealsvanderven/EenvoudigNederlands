@@ -194,6 +194,10 @@ def lint(tekst, teksttype):
 VET = re.compile(r"\*\*[^*\n]+\*\*")
 KOP = re.compile(r"^#{1,6}\s", re.M)
 OPSOMMING = re.compile(r"^\s*([-*+]|\d+[.)])\s", re.M)
+# Een opsomming in lopende tekst. Twee of meer van deze woorden horen onder elkaar te staan.
+OPSOMMING_IN_ZIN = re.compile(
+    r"\b(ten eerste|ten tweede|ten derde|ten vierde|in de eerste plaats|"
+    r"in de tweede plaats|allereerst|vervolgens|daarnaast|tot slot|ten slotte)\b", re.I)
 ANTWOORD_GRENS = 5
 ANTWOORD_ZINSGRENS = 20
 
@@ -215,11 +219,13 @@ def reader_check(tekst):
         "headers": len(KOP.findall(proza)),
         "bullets": len(OPSOMMING.findall(proza)),
         "puntkomma": proza.count(";"),
+        "opsomming_in_zin": max(0, len(OPSOMMING_IN_ZIN.findall(kaal)) - 1),
         "spreektaal": len(SPREEKTAAL.findall(proza)),
     }
     woorden = max(1, len(kaal.split()))
     zichtbaar = (telling["over_cap"] + telling["zin_te_lang"] + telling["em_dash"]
-                 + telling["bold_spans"] + telling["headers"] + telling["bullets"] + telling["puntkomma"])
+                 + telling["bold_spans"] + telling["headers"] + telling["puntkomma"]
+                 + telling["opsomming_in_zin"])
     return {"type": "antwoord", "woorden": woorden, "counts": telling,
             "visible_total": zichtbaar, "under_cap": telling["over_cap"] == 0}
 
@@ -264,6 +270,10 @@ def self_test():
     m = reader_check(muur)["counts"]
     assert m["zin_te_lang"] == 1 and m["over_cap"] == 0, m
     assert reader_check("Het werkt; het is klaar.")["counts"]["puntkomma"] == 1
+    rij = "Ten eerste werkt het niet. Ten tweede is het traag."
+    assert reader_check(rij)["counts"]["opsomming_in_zin"] == 1, rij
+    lijst = "Twee punten:\n\n- Het werkt niet.\n- Het is traag."
+    assert reader_check(lijst)["visible_total"] == 0, reader_check(lijst)
     assert reader_check("Ja. Dat is fout, want de wachtrij loopt vol. Schaal nu op.")["visible_total"] == 0
     assert lint("| Kolom | Waarde |\n|---|---|\n| Je dient te wachten | ok |\n",
                 "beschrijvend")["violations"]["verboden_modaal"] == 1

@@ -109,8 +109,9 @@ def stop(gebeurtenis):
         if c["zin_te_lang"]:
             problemen.append(f"{c['zin_te_lang']} zin boven de 20 woorden")
         for sleutel, label in (("em_dash", "gedachtestreepje"), ("bold_spans", "vet stuk"),
-                               ("headers", "kop"), ("bullets", "opsommingspunt"),
-                               ("puntkomma", "puntkomma"), ("spreektaal", "samentrekking")):
+                               ("headers", "kop"), ("puntkomma", "puntkomma"),
+                               ("opsomming_in_zin", "opsomming in lopende tekst"),
+                               ("spreektaal", "samentrekking")):
             if c[sleutel]:
                 problemen.append(f"{c[sleutel]} {label}")
         opsmuk = lint.lint(strip_code(antwoord), "beschrijvend")["violations"].get("opsmukwoord", 0)
